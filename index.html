@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <title>Строительный калькулятор</title>
+</head>
+<body>
+    <header>
+        <div class="brand">
+            <h1>Строительный калькулятор</h1>
+        </div>
+        <div class="header-actions">
+            <button id="projectsBtn" class="button button-outline" title="Мои проекты">📁 Мои проекты</button>
+            <button id="homeBtn" class="button button-outline" title="Главная">🏠</button>
+            <button id="themeToggle" class="button button-outline" title="Тема">🌓</button>
+        </div>
+        <h1>Строительный калькулятор</h1>
+    </div>
+    <div class="header-search">
+        <input id="searchInput" type="search" placeholder="Поиск по калькуляторам…" />
+    </div>
+    </header>
+    <div class="container">
+        <div id="projectsView" class="projects-view" style="display:none;"></div>
+        <div id="calcList" class="calc-list"></div>
+        <div id="calcForm" class="form-container" style="display:none;"></div>
+    </div>
+
+    <!-- Tips side panel -->
+    <div id="tipsPanel" class="tips-panel hidden" aria-hidden="true">
+      <div class="tips-backdrop"></div>
+      <aside class="tips-content" role="dialog" aria-modal="true" aria-labelledby="tipsTitle">
+        <div class="tips-header">
+          <h3 id="tipsTitle">Подсказка</h3>
+          <button id="tipsClose" class="icon-btn" aria-label="Закрыть">✖</button>
+        </div>
+        <div id="tipsBody" class="tips-body"></div>
+      </aside>
+    </div>
+    <!-- Toasts -->
+    <div id="toast" class="toast"></div>
+
+    <script src="js/engine.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

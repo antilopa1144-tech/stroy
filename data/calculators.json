@@ -1,0 +1,557 @@
+[
+  {
+    "id": "paint_wall",
+    "title": "Краска для стен",
+    "category": "Краски",
+    "fields": [
+      {
+        "key": "length",
+        "label": "Длина комнаты (м)",
+        "type": "number",
+        "unit": "m",
+        "default": 4
+      },
+      {
+        "key": "width",
+        "label": "Ширина комнаты (м)",
+        "type": "number",
+        "unit": "m",
+        "default": 3
+      },
+      {
+        "key": "height",
+        "label": "Высота комнаты (м)",
+        "type": "number",
+        "unit": "m",
+        "default": 2.5
+      },
+      {
+        "key": "doors",
+        "label": "Площадь дверей (м²)",
+        "type": "number",
+        "unit": "m²",
+        "default": 1.9
+      },
+      {
+        "key": "windows",
+        "label": "Площадь окон (м²)",
+        "type": "number",
+        "unit": "m²",
+        "default": 2.5
+      },
+      {
+        "key": "coats",
+        "label": "Количество слоёв",
+        "type": "integer",
+        "default": 2
+      },
+      {
+        "key": "coverage",
+        "label": "Укрывистость (м²/л)",
+        "type": "number",
+        "default": 10
+      },
+      {
+        "key": "waste",
+        "label": "Запас (%)",
+        "type": "percent",
+        "default": 10
+      }
+    ],
+    "computed": {
+      "area": "((length*height*2) + (width*height*2)) - doors - windows",
+      "litres": "Math.ceil((area * coats / coverage) * (1 + waste/100))"
+    },
+    "outputs": [
+      {
+        "key": "area",
+        "label": "Площадь окраски (м²)",
+        "format": "m²"
+      },
+      {
+        "key": "litres",
+        "label": "Требуемое количество литров",
+        "format": "л"
+      }
+    ]
+  },
+  {
+    "id": "laminate_floor",
+    "title": "Ламинат",
+    "category": "Полы",
+    "fields": [
+      {
+        "key": "length",
+        "label": "Длина комнаты (м)",
+        "type": "number",
+        "unit": "m",
+        "default": 4
+      },
+      {
+        "key": "width",
+        "label": "Ширина комнаты (м)",
+        "type": "number",
+        "unit": "m",
+        "default": 3
+      },
+      {
+        "key": "plank_length",
+        "label": "Длина планки (см)",
+        "type": "number",
+        "unit": "cm",
+        "default": 120
+      },
+      {
+        "key": "plank_width",
+        "label": "Ширина планки (см)",
+        "type": "number",
+        "unit": "cm",
+        "default": 20
+      },
+      {
+        "key": "pack_area",
+        "label": "Площадь пачки (м²)",
+        "type": "number",
+        "unit": "m²",
+        "default": 2.0
+      },
+      {
+        "key": "waste",
+        "label": "Запас (%)",
+        "type": "percent",
+        "default": 5
+      }
+    ],
+    "computed": {
+      "room_area": "length * width",
+      "total_area": "room_area * (1 + waste/100)",
+      "packs": "Math.ceil(total_area / pack_area)"
+    },
+    "outputs": [
+      {
+        "key": "room_area",
+        "label": "Площадь комнаты (м²)",
+        "format": "m²"
+      },
+      {
+        "key": "packs",
+        "label": "Количество пачек",
+        "format": "шт"
+      }
+    ]
+  },
+  {
+    "id": "tile_floor",
+    "title": "Плитка",
+    "category": "Полы",
+    "fields": [
+      {
+        "key": "length",
+        "label": "Длина комнаты (м)",
+        "type": "number",
+        "unit": "m",
+        "default": 4
+      },
+      {
+        "key": "width",
+        "label": "Ширина комнаты (м)",
+        "type": "number",
+        "unit": "m",
+        "default": 3
+      },
+      {
+        "key": "tile_length",
+        "label": "Длина плитки (см)",
+        "type": "number",
+        "unit": "cm",
+        "default": 30
+      },
+      {
+        "key": "tile_width",
+        "label": "Ширина плитки (см)",
+        "type": "number",
+        "unit": "cm",
+        "default": 30
+      },
+      {
+        "key": "tiles_per_box",
+        "label": "Плиток в коробке",
+        "type": "integer",
+        "default": 10
+      },
+      {
+        "key": "waste",
+        "label": "Запас (%)",
+        "type": "percent",
+        "default": 7
+      }
+    ],
+    "computed": {
+      "room_area": "length * width",
+      "tile_area": "(tile_length/100) * (tile_width/100)",
+      "tiles_needed": "Math.ceil((room_area * (1 + waste/100)) / tile_area)",
+      "boxes": "Math.ceil(tiles_needed / tiles_per_box)"
+    },
+    "outputs": [
+      {
+        "key": "tiles_needed",
+        "label": "Требуемое количество плиток",
+        "format": "шт"
+      },
+      {
+        "key": "boxes",
+        "label": "Коробок",
+        "format": "шт"
+      }
+    ]
+  },
+  {
+    "id": "plaster",
+    "title": "Штукатурка",
+    "category": "Смеси",
+    "fields": [
+      {
+        "key": "area",
+        "label": "Площадь (м²)",
+        "type": "number",
+        "unit": "m²",
+        "default": 20
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина слоя (мм)",
+        "type": "number",
+        "unit": "mm",
+        "default": 10
+      },
+      {
+        "key": "consumption",
+        "label": "Расход (кг/м²/мм)",
+        "type": "number",
+        "default": 1.0
+      },
+      {
+        "key": "bag_weight",
+        "label": "Вес мешка (кг)",
+        "type": "number",
+        "unit": "kg",
+        "default": 25
+      },
+      {
+        "key": "waste",
+        "label": "Запас (%)",
+        "type": "percent",
+        "default": 10
+      }
+    ],
+    "computed": {
+      "kg_needed": "area * thickness * consumption * (1 + waste/100)",
+      "bags": "Math.ceil(kg_needed / bag_weight)"
+    },
+    "outputs": [
+      {
+        "key": "kg_needed",
+        "label": "Необходимое количество смеси (кг)",
+        "format": "кг"
+      },
+      {
+        "key": "bags",
+        "label": "Количество мешков",
+        "format": "шт"
+      }
+    ]
+  },
+  {
+    "id": "putty",
+    "title": "Шпаклёвка",
+    "category": "Смеси",
+    "fields": [
+      {
+        "key": "area",
+        "label": "Площадь (м²)",
+        "type": "number",
+        "unit": "m²",
+        "default": 20
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина слоя (мм)",
+        "type": "number",
+        "unit": "mm",
+        "default": 5
+      },
+      {
+        "key": "consumption",
+        "label": "Расход (кг/м²/мм)",
+        "type": "number",
+        "default": 0.8
+      },
+      {
+        "key": "bag_weight",
+        "label": "Вес мешка (кг)",
+        "type": "number",
+        "unit": "kg",
+        "default": 20
+      },
+      {
+        "key": "waste",
+        "label": "Запас (%)",
+        "type": "percent",
+        "default": 10
+      }
+    ],
+    "computed": {
+      "kg_needed": "area * thickness * consumption * (1 + waste/100)",
+      "bags": "Math.ceil(kg_needed / bag_weight)"
+    },
+    "outputs": [
+      {
+        "key": "kg_needed",
+        "label": "Необходимое количество шпаклёвки (кг)",
+        "format": "кг"
+      },
+      {
+        "key": "bags",
+        "label": "Количество мешков",
+        "format": "шт"
+      }
+    ]
+  },
+  {
+    "id": "screed",
+    "title": "Стяжка",
+    "category": "Смеси",
+    "fields": [
+      {
+        "key": "area",
+        "label": "Площадь (м²)",
+        "type": "number",
+        "unit": "m²",
+        "default": 20
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина слоя (см)",
+        "type": "number",
+        "unit": "cm",
+        "default": 5
+      },
+      {
+        "key": "consumption",
+        "label": "Расход (кг/м²/см)",
+        "type": "number",
+        "default": 20
+      },
+      {
+        "key": "bag_weight",
+        "label": "Вес мешка (кг)",
+        "type": "number",
+        "unit": "kg",
+        "default": 25
+      },
+      {
+        "key": "waste",
+        "label": "Запас (%)",
+        "type": "percent",
+        "default": 10
+      }
+    ],
+    "computed": {
+      "kg_needed": "area * thickness * consumption * (1 + waste/100)",
+      "bags": "Math.ceil(kg_needed / bag_weight)"
+    },
+    "outputs": [
+      {
+        "key": "kg_needed",
+        "label": "Необходимое количество смеси (кг)",
+        "format": "кг"
+      },
+      {
+        "key": "bags",
+        "label": "Количество мешков",
+        "format": "шт"
+      }
+    ]
+  },
+  {
+    "id": "wallpaper",
+    "title": "Обои",
+    "category": "Отделка",
+    "fields": [
+      {
+        "key": "perimeter",
+        "label": "Периметр комнаты (м)",
+        "type": "number",
+        "unit": "m",
+        "default": 14
+      },
+      {
+        "key": "height",
+        "label": "Высота стены (м)",
+        "type": "number",
+        "unit": "m",
+        "default": 2.5
+      },
+      {
+        "key": "roll_length",
+        "label": "Длина рулона (м)",
+        "type": "number",
+        "unit": "m",
+        "default": 10
+      },
+      {
+        "key": "roll_width",
+        "label": "Ширина рулона (м)",
+        "type": "number",
+        "unit": "m",
+        "default": 0.53
+      },
+      {
+        "key": "waste",
+        "label": "Запас (%)",
+        "type": "percent",
+        "default": 5
+      }
+    ],
+    "computed": {
+      "wall_area": "perimeter * height",
+      "roll_area": "roll_length * roll_width",
+      "rolls": "Math.ceil((wall_area * (1 + waste/100)) / roll_area)"
+    },
+    "outputs": [
+      {
+        "key": "rolls",
+        "label": "Количество рулонов",
+        "format": "шт"
+      }
+    ]
+  },
+  {
+    "id": "skirting",
+    "title": "Плинтус",
+    "category": "Отделка",
+    "fields": [
+      {
+        "key": "perimeter",
+        "label": "Периметр комнаты (м)",
+        "type": "number",
+        "unit": "m",
+        "default": 14
+      },
+      {
+        "key": "unit_length",
+        "label": "Длина одного плинтуса (м)",
+        "type": "number",
+        "unit": "m",
+        "default": 2.5
+      },
+      {
+        "key": "waste",
+        "label": "Запас (%)",
+        "type": "percent",
+        "default": 5
+      }
+    ],
+    "computed": {
+      "total_length": "perimeter * (1 + waste/100)",
+      "units": "Math.ceil(total_length / unit_length)"
+    },
+    "outputs": [
+      {
+        "key": "units",
+        "label": "Количество плинтусов",
+        "format": "шт"
+      }
+    ]
+  },
+  {
+    "id": "drywall",
+    "title": "ГКЛ (гипсокартон)",
+    "category": "Листы",
+    "fields": [
+      {
+        "key": "area",
+        "label": "Площадь (м²)",
+        "type": "number",
+        "unit": "m²",
+        "default": 20
+      },
+      {
+        "key": "sheet_length",
+        "label": "Длина листа (м)",
+        "type": "number",
+        "unit": "m",
+        "default": 2.5
+      },
+      {
+        "key": "sheet_width",
+        "label": "Ширина листа (м)",
+        "type": "number",
+        "unit": "m",
+        "default": 1.2
+      },
+      {
+        "key": "waste",
+        "label": "Запас (%)",
+        "type": "percent",
+        "default": 10
+      }
+    ],
+    "computed": {
+      "sheet_area": "sheet_length * sheet_width",
+      "sheets": "Math.ceil((area * (1 + waste/100)) / sheet_area)"
+    },
+    "outputs": [
+      {
+        "key": "sheets",
+        "label": "Количество листов",
+        "format": "шт"
+      }
+    ]
+  },
+  {
+    "id": "insulation",
+    "title": "Утеплитель",
+    "category": "Листы",
+    "fields": [
+      {
+        "key": "area",
+        "label": "Площадь (м²)",
+        "type": "number",
+        "unit": "m²",
+        "default": 20
+      },
+      {
+        "key": "board_length",
+        "label": "Длина плиты (м)",
+        "type": "number",
+        "unit": "m",
+        "default": 1.0
+      },
+      {
+        "key": "board_width",
+        "label": "Ширина плиты (м)",
+        "type": "number",
+        "unit": "m",
+        "default": 0.6
+      },
+      {
+        "key": "waste",
+        "label": "Запас (%)",
+        "type": "percent",
+        "default": 10
+      }
+    ],
+    "computed": {
+      "board_area": "board_length * board_width",
+      "boards": "Math.ceil((area * (1 + waste/100)) / board_area)"
+    },
+    "outputs": [
+      {
+        "key": "boards",
+        "label": "Количество плит",
+        "format": "шт"
+      }
+    ]
+  }
+]
